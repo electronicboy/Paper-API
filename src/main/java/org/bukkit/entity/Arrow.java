@@ -116,6 +116,33 @@ public interface Arrow extends Projectile {
     public class Spigot extends Entity.Spigot
     {
 
+        /**
+         * Gets the base amount of damage this arrow will do.
+         *
+         * Defaults to 2.0 for a normal arrow with
+         * <code>0.5 * (1 + power level)</code> added for arrows fired from
+         * enchanted bows.
+         *
+         * @return base damage amount
+         * @deprecated {@link Arrow#getDamage()}
+         */
+        @Deprecated
+        public double getDamage()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
+
+        /**
+         * Sets the base amount of damage this arrow will do.
+         *
+         * @param damage new damage amount
+         * @deprecated {@link Arrow#setDamage(double)}
+         */
+        @Deprecated
+        public void setDamage(double damage)
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
     }
 
     @NotNull
