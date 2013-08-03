@@ -576,6 +576,17 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
     public class Spigot extends CommandSender.Spigot
     {
 
+        /**
+         * Returns whether this entity is invulnerable.
+         *
+         * @return True if the entity is invulnerable.
+         * @deprecated {@link Entity#isInvulnerable()}
+         */
+        @Deprecated
+        public boolean isInvulnerable()
+        {
+            throw new UnsupportedOperationException( "Not supported yet." );
+        }
     }
 
     @NotNull
