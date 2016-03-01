@@ -69,4 +69,12 @@ public interface UnsafeValues {
      * @return true if a file matching this key was found and deleted
      */
     boolean removeAdvancement(NamespacedKey key);
+
+    // Paper start
+    /**
+     * Server name to report to timings v2
+     * @return name
+     */
+    String getTimingsServerName();
+    // Paper end
 }
