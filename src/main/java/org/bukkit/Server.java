@@ -1366,4 +1366,6 @@ public interface Server extends PluginMessageRecipient {
     @NotNull
     Spigot spigot();
     // Spigot end
+
+    void reloadPermissions(); // Paper
 }
