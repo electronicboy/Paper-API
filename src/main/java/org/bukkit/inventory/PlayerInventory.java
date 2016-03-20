@@ -215,4 +215,23 @@ public interface PlayerInventory extends Inventory {
     @Override
     @Nullable
     public HumanEntity getHolder();
+
+    // Paper start
+    /**
+     * Gets the {@link ItemStack} found in the slot.
+     *
+     * @param slot The slot
+     * @return The item stack in the slot
+     */
+    @Nullable
+    ItemStack getItem(@NotNull EquipmentSlot slot);
+
+    /**
+     * Sets the {@link ItemStack} at the given {@link EquipmentSlot}.
+     *
+     * @param slot The slot for the stack
+     * @param stack The item stack to set
+     */
+    void setItem(@NotNull EquipmentSlot slot, @Nullable ItemStack stack);
+    // Paper end
 }
