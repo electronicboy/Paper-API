@@ -1555,6 +1555,15 @@ public final class Bukkit {
     public static void reloadPermissions() {
         server.reloadPermissions();
     }
+
+    /**
+     * Reload the Command Aliases in commands.yml
+     *
+     * @return Whether the reload was successful
+     */
+    public static boolean reloadCommandAliases() {
+        return server.reloadCommandAliases();
+    }
     // Paper end
 
     @NotNull
