@@ -584,4 +584,15 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      */
     @NotNull
     Pose getPose();
+
+    // Spigot start
+    public class Spigot extends CommandSender.Spigot
+    {
+
+    }
+
+    @NotNull
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

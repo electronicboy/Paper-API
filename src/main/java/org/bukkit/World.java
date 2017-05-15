@@ -1872,6 +1872,16 @@ public interface World extends PluginMessageRecipient, Metadatable {
     @Nullable
     public Location locateNearestStructure(@NotNull Location origin, @NotNull StructureType structureType, int radius, boolean findUnexplored);
 
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    @NotNull
+    Spigot spigot();
+    // Spigot end
+
     /**
      * Represents various map environment types that a world may be
      */

@@ -388,4 +388,14 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     @SuppressWarnings("javadoc")
     @NotNull
     ItemMeta clone();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    @NotNull
+    Spigot spigot();
+    // Spigot end
 }
