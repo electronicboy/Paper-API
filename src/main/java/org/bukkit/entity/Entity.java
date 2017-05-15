@@ -571,4 +571,15 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      */
     @NotNull
     BlockFace getFacing();
+
+    // Spigot start
+    public class Spigot extends CommandSender.Spigot
+    {
+
+    }
+
+    @NotNull
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

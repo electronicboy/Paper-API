@@ -111,4 +111,15 @@ public interface Arrow extends Projectile {
          */
         CREATIVE_ONLY
     }
+
+    // Spigot start
+    public class Spigot extends Entity.Spigot
+    {
+
+    }
+
+    @NotNull
+    @Override
+    Spigot spigot();
+    // Spigot end
 }

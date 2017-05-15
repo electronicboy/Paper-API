@@ -1276,4 +1276,14 @@ public interface Server extends PluginMessageRecipient {
     @Deprecated
     @NotNull
     UnsafeValues getUnsafe();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    @NotNull
+    Spigot spigot();
+    // Spigot end
 }

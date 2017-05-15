@@ -343,4 +343,14 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable {
     @SuppressWarnings("javadoc")
     @NotNull
     ItemMeta clone();
+
+    // Spigot start
+    public class Spigot
+    {
+
+    }
+
+    @NotNull
+    Spigot spigot();
+    // Spigot end
 }
