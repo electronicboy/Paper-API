@@ -324,6 +324,26 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      */
     public int getExpToLevel();
 
+    // Paper start
+    /**
+     * If there is an Entity on this entities left shoulder, it will be released to the world and returned.
+     * If no Entity is released, null will be returned.
+     *
+     * @return The released entity, or null
+     */
+    @Nullable
+    public Entity releaseLeftShoulderEntity();
+
+    /**
+     * If there is an Entity on this entities left shoulder, it will be released to the world and returned.
+     * If no Entity is released, null will be returned.
+     *
+     * @return The released entity, or null
+     */
+    @Nullable
+    public Entity releaseRightShoulderEntity();
+    // Paper end
+
     /**
      * Discover a recipe for this player such that it has not already been
      * discovered. This method will add the key's associated recipe to the
