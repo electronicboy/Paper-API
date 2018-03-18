@@ -3,6 +3,8 @@ package org.bukkit.event.player;
 import java.net.InetAddress;
 import java.util.UUID;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +28,32 @@ public class AsyncPlayerPreLoginEvent extends Event {
     }
 
     public AsyncPlayerPreLoginEvent(@NotNull final String name, @NotNull final InetAddress ipAddress, @NotNull final UUID uniqueId) {
+        // Paper start
+        this(name, ipAddress, uniqueId, Bukkit.createProfile(uniqueId, name));
+    }
+    private PlayerProfile profile;
+
+    /**
+     * Gets the PlayerProfile of the player logging in
+     * @return The Profile
+     */
+    @NotNull
+    public PlayerProfile getPlayerProfile() {
+        return profile;
+    }
+
+    /**
+     * Changes the PlayerProfile the player will login as
+     * @param profile The profile to use
+     */
+    public void setPlayerProfile(@NotNull PlayerProfile profile) {
+        this.profile = profile;
+    }
+
+    public AsyncPlayerPreLoginEvent(@NotNull final String name, @NotNull final InetAddress ipAddress, @NotNull final UUID uniqueId, @NotNull PlayerProfile profile) {
         super(true);
+        this.profile = profile;
+        // Paper end
         this.result = Result.ALLOWED;
         this.message = "";
         this.name = name;
