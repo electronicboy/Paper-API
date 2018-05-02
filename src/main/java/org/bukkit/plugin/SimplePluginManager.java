@@ -419,17 +419,29 @@ public final class SimplePluginManager implements PluginManager {
         }
     }
 
+    // Paper start - close Classloader on disable
     public void disablePlugins() {
+        disablePlugins(false);
+    }
+
+    public void disablePlugins(boolean closeClassloaders) {
+        // Paper end - close Classloader on disable
         Plugin[] plugins = getPlugins();
         for (int i = plugins.length - 1; i >= 0; i--) {
-            disablePlugin(plugins[i]);
+            disablePlugin(plugins[i], closeClassloaders); // Paper - close Classloader on disable
         }
     }
 
+    // Paper start - close Classloader on disable
     public void disablePlugin(@NotNull final Plugin plugin) {
+        disablePlugin(plugin, false);
+    }
+
+    public void disablePlugin(@NotNull final Plugin plugin, boolean closeClassloader) {
+        // Paper end - close Classloader on disable
         if (plugin.isEnabled()) {
             try {
-                plugin.getPluginLoader().disablePlugin(plugin);
+                plugin.getPluginLoader().disablePlugin(plugin, closeClassloader); // Paper - close Classloader on disable
             } catch (Throwable ex) {
                 handlePluginException("Error occurred (in the plugin loader) while disabling "
                         + plugin.getDescription().getFullName() + " (Is it up to date?)", ex, plugin); // Paper
@@ -475,7 +487,7 @@ public final class SimplePluginManager implements PluginManager {
 
     public void clearPlugins() {
         synchronized (this) {
-            disablePlugins();
+            disablePlugins(true); // Paper - close Classloader on disable
             plugins.clear();
             lookupNames.clear();
             HandlerList.unregisterAll();
