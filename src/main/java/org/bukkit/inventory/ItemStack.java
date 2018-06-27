@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents a stack of items
+ * Represents a stack of item
  */
 public class ItemStack implements Cloneable, ConfigurationSerializable {
     private Material type = Material.AIR;
