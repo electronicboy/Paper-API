@@ -76,5 +76,9 @@ public interface UnsafeValues {
      * @return name
      */
     String getTimingsServerName();
+
+    static boolean isLegacyPlugin(org.bukkit.plugin.Plugin plugin) {
+        return !"1.13".equals(plugin.getDescription().getAPIVersion()) && !"1.14".equals(plugin.getDescription().getAPIVersion());
+    }
     // Paper end
 }
