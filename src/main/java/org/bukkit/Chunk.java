@@ -99,13 +99,26 @@ public interface Chunk {
     @NotNull
     Entity[] getEntities();
 
+    // Paper start
     /**
      * Get a list of all tile entities in the chunk.
      *
      * @return The tile entities.
      */
     @NotNull
-    BlockState[] getTileEntities();
+    default BlockState[] getTileEntities() {
+        return getTileEntities(true);
+    }
+
+    /**
+     * Get a list of all tile entities in the chunk.
+     *
+     * @param useSnapshot Take snapshots or direct references
+     * @return The tile entities.
+     */
+    @NotNull
+    BlockState[] getTileEntities(boolean useSnapshot);
+    // Paper end
 
     /**
      * Checks if the chunk is loaded.
