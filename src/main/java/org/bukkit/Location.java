@@ -1,5 +1,6 @@
 package org.bukkit;
 
+import com.google.common.base.Preconditions; // Paper
 import java.util.HashMap;
 import java.util.Map;
 
@@ -519,6 +520,15 @@ public class Location implements Cloneable, ConfigurationSerializable {
     public boolean isChunkLoaded() { return world.isChunkLoaded(locToBlock(x) >> 4, locToBlock(z) >> 4); } // Paper
 
     // Paper start
+    /**
+     * Checks if a {@link Chunk} has been generated at this location.
+     *
+     * @return true if a chunk has been generated at this location
+     */
+    public boolean isGenerated() {
+        Preconditions.checkNotNull(world, "Location has no world!");
+        return world.isChunkGenerated(locToBlock(x) >> 4, locToBlock(z) >> 4);
+    }
 
     /**
      * Sets the position of this Location and returns itself
