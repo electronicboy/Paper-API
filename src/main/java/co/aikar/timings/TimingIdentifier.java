@@ -23,12 +23,13 @@
  */
 package co.aikar.timings;
 
-import com.google.common.base.Function;
 import co.aikar.util.LoadingMap;
-import co.aikar.util.MRUMapCache;
 
 import java.util.ArrayDeque;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p>Used as a basis for fast HashMap key comparisons for the Timing Map.</p>
@@ -39,15 +40,8 @@ final class TimingIdentifier {
     /**
      * Holds all groups. Autoloads on request for a group by name.
      */
-    static final Map<String, TimingGroup> GROUP_MAP = MRUMapCache.of(
-        LoadingMap.newIdentityHashMap(new Function<String, TimingGroup>() {
-            @Override
-            public TimingGroup apply(String group) {
-                return new TimingGroup(group);
-            }
-        }, 64)
-    );
-    static final TimingGroup DEFAULT_GROUP = getGroup("Minecraft");
+    static final Map<String, TimingGroup> GROUP_MAP = LoadingMap.of(new ConcurrentHashMap<>(64, .5F), TimingGroup::new);
+    private static final TimingGroup DEFAULT_GROUP = getGroup("Minecraft");
     final String group;
     final String name;
     final TimingHandler groupHandler;
@@ -55,8 +49,8 @@ final class TimingIdentifier {
     private final int hashCode;
 
     TimingIdentifier(String group, String name, Timing groupHandler, boolean protect) {
-        this.group = group != null ? group.intern() : DEFAULT_GROUP.name;
-        this.name = name.intern();
+        this.group = group != null ? group: DEFAULT_GROUP.name;
+        this.name = name;
         this.groupHandler = groupHandler != null ? groupHandler.getTimingHandler() : null;
         this.protect = protect;
         this.hashCode = (31 * this.group.hashCode()) + this.name.hashCode();
@@ -67,11 +61,9 @@ final class TimingIdentifier {
             return DEFAULT_GROUP;
         }
 
-        return GROUP_MAP.get(groupName.intern());
+        return GROUP_MAP.get(groupName);
     }
 
-    // We are using .intern() on the strings so it is guaranteed to be an identity comparison.
-    @SuppressWarnings("StringEquality")
     @Override
     public boolean equals(Object o) {
         if (o == null) {
@@ -79,7 +71,7 @@ final class TimingIdentifier {
         }
 
         TimingIdentifier that = (TimingIdentifier) o;
-        return group == that.group && name == that.name;
+        return Objects.equals(group, that.group) && Objects.equals(name, that.name);
     }
 
     @Override
@@ -89,14 +81,27 @@ final class TimingIdentifier {
 
     static class TimingGroup {
 
-        private static int idPool = 1;
-        final int id = idPool++;
+        private static AtomicInteger idPool = new AtomicInteger(1);
+        final int id = idPool.getAndIncrement();
 
         final String name;
         ArrayDeque<TimingHandler> handlers = new ArrayDeque<TimingHandler>(64);
 
         private TimingGroup(String name) {
             this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            TimingGroup that = (TimingGroup) o;
+            return id == that.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return id;
         }
     }
 }

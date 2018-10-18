@@ -201,11 +201,11 @@ public class TimingHistory {
 
         @SuppressWarnings("unchecked")
         final Map<EntityType, Counter> entityCounts = MRUMapCache.of(LoadingMap.of(
-                new EnumMap<EntityType, Counter>(EntityType.class), Counter.LOADER
+                new EnumMap<EntityType, Counter>(EntityType.class), k -> new Counter()
         ));
         @SuppressWarnings("unchecked")
         final Map<Material, Counter> tileEntityCounts = MRUMapCache.of(LoadingMap.of(
-                new EnumMap<Material, Counter>(Material.class), Counter.LOADER
+                new EnumMap<Material, Counter>(Material.class), k -> new Counter()
         ));
 
         static class RegionId {
@@ -335,13 +335,6 @@ public class TimingHistory {
 
     private static class Counter {
         private int count = 0;
-        @SuppressWarnings({"rawtypes", "SuppressionAnnotation", "Guava"})
-        static Function LOADER = new LoadingMap.Feeder<Counter>() {
-            @Override
-            public Counter apply() {
-                return new Counter();
-            }
-        };
         public int increment() {
             return ++count;
         }
