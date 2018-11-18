@@ -13,10 +13,18 @@ public class VehicleExitEvent extends VehicleEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
     private final LivingEntity exited;
+    private final boolean isCancellable; // Paper
 
-    public VehicleExitEvent(@NotNull final Vehicle vehicle, @NotNull final LivingEntity exited) {
+    public VehicleExitEvent(@NotNull final Vehicle vehicle, @NotNull final LivingEntity exited, boolean isCancellable) { // Paper
         super(vehicle);
         this.exited = exited;
+        // Paper start
+        this.isCancellable = isCancellable;
+    }
+
+    public VehicleExitEvent(@NotNull final Vehicle vehicle, @NotNull final LivingEntity exited) {
+        this(vehicle, exited, true);
+        // Paper end
     }
 
     /**
@@ -34,7 +42,16 @@ public class VehicleExitEvent extends VehicleEvent implements Cancellable {
     }
 
     public void setCancelled(boolean cancel) {
+        // Paper start
+        if (cancel && !isCancellable) {
+            return;
+        }
         this.cancelled = cancel;
+    }
+
+    public boolean isCancellable() {
+        return isCancellable;
+        // paper end
     }
 
     @NotNull
