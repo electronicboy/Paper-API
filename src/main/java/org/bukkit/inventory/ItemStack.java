@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.UndefinedNullability;
 import org.bukkit.Utility;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.enchantments.Enchantment;
@@ -527,7 +528,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable {
      *
      * @return a copy of the current ItemStack's ItemData
      */
-    @Nullable
+    @UndefinedNullability // Paper
     public ItemMeta getItemMeta() {
         return this.meta == null ? Bukkit.getItemFactory().getItemMeta(this.type) : this.meta.clone();
     }

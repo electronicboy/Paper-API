@@ -1183,7 +1183,7 @@ public final class Bukkit {
      *
      * @return the scoreboard manager or null if no worlds are loaded.
      */
-    @Nullable
+    @NotNull // Paper
     public static ScoreboardManager getScoreboardManager() {
         return server.getScoreboardManager();
     }
@@ -1480,7 +1480,7 @@ public final class Bukkit {
      * @param clazz the class of the tag entries
      * @return the tag or null
      */
-    @Nullable
+    @UndefinedNullability // Paper
     public static <T extends Keyed> Tag<T> getTag(@NotNull String registry, @NotNull NamespacedKey tag, @NotNull Class<T> clazz) {
         return server.getTag(registry, tag, clazz);
     }
