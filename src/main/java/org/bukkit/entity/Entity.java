@@ -645,5 +645,11 @@ public interface Entity extends Metadatable, CommandSender, Nameable {
      */
     @NotNull
     Chunk getChunk();
+
+    /**
+     * @return The {@link org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason} that spawned this entity.
+     */
+    @NotNull
+    org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason getEntitySpawnReason();
     // Paper end
 }
