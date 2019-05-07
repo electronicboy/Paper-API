@@ -268,7 +268,7 @@ public class VersionCommand extends BukkitCommand {
             return getFromJenkins(currentVer);
         } catch (NumberFormatException ex) {
             verInfo = verInfo.replace("\"", "");
-            return getFromRepo("PaperMC/Paper", "master", verInfo);
+            return getFromRepo("PaperMC/Paper", "ver/1.14", verInfo); // Just for now
         }
             /*
             BufferedReader reader = Resources.asCharSource(
